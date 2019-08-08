@@ -1,0 +1,95 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="../../../public/admin/js/jquery.js"></script>
+<script src="../../../public/admin/other/page/jqPaginator.js"></script>
+
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品广告列表</span>
+        <a href="/admin/goods/add" class=" pull-right">增加商品广告</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>商品名称</th>
+                        <th>商品编号</th>
+                        <th>销售价格</th>
+                        <th>库存数量</th>
+                        <th>商品状态</th>
+                        <th>商品新品</th>
+                        <th>商品热销</th>
+                        <th>商品精品</th>
+                        <th>排序</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for goods in goodss%}
+                    <tr>
+                        <td>{{goods.goods_title}}</td>
+                        <td>{{goods.goods_sn}}</td>
+                        <td>{{goods.price_selling}}</td>
+                        <td>{{goods.stock_number}}</td>
+                        <td>
+                            {%if goods.is_sale == 1%}
+                           <span class="glyphicon glyphicon-ok icon-color-green " ></span>
+                            {%else%}
+                            <span class="glyphicon glyphicon-remove icon-color-red " ></span>
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if goods.is_new == 1%}
+                           <span class="glyphicon glyphicon-ok icon-color-green" ></span>
+                            {%else%}
+                            <span class="glyphicon glyphicon-remove icon-color-red" ></span>
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if goods.is_hot == 1%}
+                           <span class="glyphicon glyphicon-ok icon-color-green " ></span>
+                            {%else%}
+                            <span class="glyphicon glyphicon-remove icon-color-red " ></span>
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if goods.is_best == 1%}
+                           <span class="glyphicon glyphicon-ok icon-color-green " ></span>
+                            {%else%}
+                            <span class="glyphicon glyphicon-remove icon-color-red " ></span>
+                            {%endif%}
+                        </td>
+                        <td>{{goods.data_sort}}</td>
+                                                                                  
+                            <td class=" text-center text">　
+                            <a href="/admin/goods/edit?_id={{goods._id}}">修改</a>　
+                            <a href="/admin/goods/delete?_id={{goods._id}}">删除</a>
+                            <a href="/admin/goods/deleteUpdate?_id={{goods._id}}">软删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+                
+            </table>
+            <div id="page" class="pagination fr">
+
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+
+$('#page').jqPaginator({
+    totalPages:{{totalPage}},
+    visiblePages:3,
+    currentPage:{{page}},
+    onPageChange:function(num,type){
+        if(type == 'change'){
+            console.log(num);
+            
+            location.href = "/admin/goods?page="+num
+        }
+    }
+})
+</script>

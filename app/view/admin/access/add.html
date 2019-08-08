@@ -1,0 +1,44 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">              
+        <div class="panel-heading">
+        增加权限
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive input-form">
+                    <form action="/admin/access/doAdd" method="post">
+                        <ul>
+                            <input type="hidden" name="_csrf" value="{{csrf}}">
+                            <li>
+                                节点类型:
+                                <!-- 1、表示模块   2、表示菜单     3、操作 -->
+                                <select name="access_type" id="access_type">
+                                        <option value="1">模块</option>
+                                        <option value="2">菜单</option>
+                                        <option value="3">操作</option>
+                                </select>
+                            </li>
+                            <li>  权限模块: <input type="text" name="access_module"/></li>
+                            <li>  权限操作: <input type="text" name="access_action"/></li>
+                            <li>  权限资源: <input type="text" name="access_url"/></li>
+                            <li>  所属模块:
+                                <select name="access_module_id" id="access_module_id">
+                                        <option value="0">顶级模块</option>
+                                        {%for module in modules%}
+                                        <option value="{{module._id}}">{{module.access_module}}</option> 
+                                        {% endfor %}
+                                </select>
+                            </li>
+                            <li>  权限排序: <input type="text" name="data_sort" value="100"/>1</li>
+                            <li>  权限描述:	
+                                <textarea name="access_desc" id="access_desc" cols="60" rows="5"></textarea>
+                            </li>
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </li>
+                        </ul>
+                    </form>
+            </div>
+        </div>
+</div>

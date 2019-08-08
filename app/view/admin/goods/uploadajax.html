@@ -1,0 +1,36 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<link rel="stylesheet" href="/public/admin/other/webuploader/css/diyUpload.css">
+<link rel="stylesheet" href="/public/admin/other/webuploader/css/webuploader.css">
+<script src="/public/admin/js/jquery.js"></script>
+<script src="/public/admin/other/webuploader/js/diyUpload.js"></script>
+<script src="/public/admin/other/webuploader/js/webuploader.html5only.min.js"></script>
+
+<div class="panel panel-default">
+        <div class="panel-heading">
+            增加商品相册
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive input-form">
+                <div class="photoLib" id="photoLib"></div>
+                <div id="photoList">
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+$(function(){
+        var photoStr = "";
+        $("#photoLib").diyUpload({
+            url:'/admin/gallery/doUpload?_csrf={{csrf}}',
+            success:function(response){
+                photoStr = '<input type="hidden" name="goods_image_list[]" value='+response.link+' />';
+                $("photoList").append(photoStr);
+            },
+            error:function(err){
+               
+                console.log(err)
+            }
+        })
+    })
+</script>

@@ -1,0 +1,32 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        增加评论
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/comment/doAdd?_csrf={{csrf}}" method="post">
+                <ul>
+                    <li> 评论类型:
+                        <input type="radio" name="comment_type" value="1" id="a" checked /> <label for="a">文章</label>
+                        <input type="radio" name="comment_type" value="0" id="b" /><label for="b">商品</label>
+                    </li>
+                    <li> 评论内容:
+                        <textarea name="comment_content" cols="30" rows="10"></textarea>
+                    </li>
+                    <li> 评论状态:
+                        <input type="radio" name="comment_status" value="1" id="a" checked /> <label
+                            for="a">显示批准</label>
+                        <input type="radio" name="comment_status" value="0" id="b" /><label for="b">未显示批准</label>
+                    </li>
+                    <li>
+                        <br />
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

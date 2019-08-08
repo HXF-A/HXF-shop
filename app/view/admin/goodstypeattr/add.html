@@ -1,0 +1,57 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">              
+        <div class="panel-heading">
+            增加商品类型属性
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive input-form">
+                <form action="/admin/goodstypeattr/doAdd" method="post">
+                    <ul>
+                            <li>  　属性名称： <input type="text" name="attr_name"/></li> 
+                            <li>  　所属商品类型：
+                                <select name="type_id" id="type_id">
+                                        {%for goodstype in goodstypes%}
+                                            <option value="{{goodstype._id}}"
+                                        {%if goodstype._id.toString()==formgoodstype._id.toString()%}
+                                        selected
+                                        {%endif%}
+                                            >
+                                                {{goodstype.type_name}}
+                                            </option> 
+                                            {%endfor%}                                          
+                                </select>
+                            </li> 
+                            <li>  　所属属性分组：
+                                <select name="attr_group" id="attr_group">
+                                    {%for attrgp in formgoodstype.attr_group%}
+                                            <option  value="{{attrgp}}">
+                                            {{attrgp}}
+                                            </option>  
+                                            {%endfor%}                                         
+                                </select>
+                            </li> 
+                            <li>   　属性展示类型：
+                                    <input type="radio" name="attr_type" value="1" checked="true" id="text" /><label for="text">唯一属性</label> 　
+                                    <input type="radio" name="attr_type" value="2" id="textarea" /><label for="textarea">单选属性</label> 　
+                                    <input type="radio" name="attr_type" value="3"  id="select" /><label for="select">复选属性</label>　
+                            </li> 
+                            <li>   　录入方式：
+                                    <input type="radio" name="attr_input" value="1" checked="true" id="text" /><label for="text">单行录入</label> 　
+                                    <input type="radio" name="attr_input" value="2"  id="select" /><label for="select">多行录入（一行一个选项值）</label>　
+                            </li> 
+                            <!-- <li>
+                                可选值列表：
+                                <textarea name="attr_value" id="attr_value" cols="60" rows="8" >
+                                </textarea>
+                            </li> -->
+    
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </li>
+                        </ul>
+                </form>
+            </div>
+        </div>
+</div>

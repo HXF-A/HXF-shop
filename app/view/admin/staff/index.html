@@ -1,0 +1,40 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+
+
+<div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="th">
+                <th>用户名称</th>
+                <th>用户编号</th>
+                <th>用户电话</th>
+                <th>用户角色</th>
+                                
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                {%for staff in staffs %}
+                    <tr>
+                        <td>{{staff.staff_name}}</td>
+                        <td>{{staff.staff_no}}</td>
+                        <td>{{staff.staff_phone}}</td>
+                        <td>
+                            {%if staff.is_super == 1%}
+                            超级管理员
+                            {%else%}
+                            {{staff.role[0].role_name}}
+                            {%endif%}
+                        </td>                      
+                        <td class="text-center text"> 
+                                <!-- /admin/staff/edit?_id={{staff._id}} -->
+                            <a href="/admin/staff/edit?_id={{staff._id}}">修改</a>　　
+                            <a href="/admin/staff/delete?_id={{staff._id}}">删除</a>
+                        </td>
+                    </tr> 
+                {%endfor%}      
+            </tbody>
+        </table>
+</div>
+

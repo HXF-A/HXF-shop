@@ -1,0 +1,41 @@
+
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">              
+  <div class="panel-heading">
+      增加用户等级
+      <a href="/admin/userrank/add" class="pull-right">增加等级</a>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+        <thead>
+        <tr class="th">
+            <th>等级图标</th>
+            <th>等级名称</th>
+            <th>开始积分</th>
+            <th>结束积分</th>
+            <th>会员折扣%</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+               
+                {%for userrank in userranks%}
+                <tr>
+                    <td>
+                        <span class="glyphicon {{userrank.rank_icon}} " style="color:greenyellow"/> 
+                    </td>
+                    <td>{{userrank.rank_name}}</td>
+                    <td>{{userrank.start_score}}</td>
+                    <td>{{userrank.end_score}}</td>
+                    <td>{{userrank.disconnt}}</td>
+                    <td class="text-center text">
+                        <a href="/admin/userrank/edit?_id={{userrank._id}}">修改</a>　　
+                        <a href="/admin/userrank/delete?_id={{userrank._id}}">删除</a>
+                    </td>
+                </tr> 
+                {%endfor%}
+        </tbody>
+    </table>
+  </div>
+</div>

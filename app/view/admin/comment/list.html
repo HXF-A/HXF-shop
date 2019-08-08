@@ -1,0 +1,52 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品广告列表</span>
+        <a href="/admin/comment/add" class=" pull-right">增加</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>评论类型</th>
+                        <th>评论内容</th>
+                        <th>用户名称</th>
+                        <th>用户ip</th>
+                        <th>评论时间</th>
+                        <th>评论状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for comment in comments%}
+                    <tr>
+                        {%if comment.comment_type == 1%}
+                        <td>文章</td>
+                        {%else%}
+                        <td>商品</td>
+                        {%endif%}
+                      <td>{{comment.comment_content}}</td>
+                        <td>{{comment.user_name}}</td>
+                        <td>{{comment.user_ip}}</td>
+                        <td>{{helper.dateFormat(comment.comment_time)}}</td>
+                        <td>
+                            {%if comment.comment_status==1 %}
+                            显示批准
+                            {%else%}
+                            未显示批准
+                            {%endif%}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/comment/edit?_id={{comment._id}}">修改</a>　
+                            <a href="/admin/comment/delete?_id={{comment._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>

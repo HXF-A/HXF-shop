@@ -1,0 +1,69 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        修改商品类型属性
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/goodstypeattr/doEdit" method="post">
+                <ul>
+                    <input type="hidden" name="_cref" value="{{cref}}">
+                    <input type="hidden" name="_id" value="{{attr._id}}">
+                    <li> 　属性名称： <input type="text" name="attr_name" value="{{attr.attr_name}}" /></li>
+                    <li> 　所属商品类型：
+                        <select name="type_id" id="type_id">
+                            {%for goodstype in alltypes%}
+                            <option value="{{goodstype._id}}" {%if goodstype._id.toString()==attr.type_id.toString()%}
+                                selected {%endif%}>
+                                {{goodstype.type_name}}
+                            </option>
+                            {%endfor%}
+                        </select>
+                    </li>
+                    <li> 　所属属性分组：
+                        <select name="attr_group" id="attr_group">
+                            {%for attrgp in attr.goodstype[0].attr_group%}
+                            <option value="{{attrgp}}" {%if attr.attr_group == attrgp %}selected {%endif%}>
+                                {{attrgp}}
+
+                            </option>
+                            {%endfor%}
+                        </select>
+                    </li>
+                    <li> 　属性展示类型：
+                        <input type="radio" name="attr_type" value="1" {%if attr.attr_type == 1 %} checked {%endif%}
+                            id="text" /><label for="text">唯一属性</label> 　
+                        <input type="radio" name="attr_type" value="2" {%if attr.attr_type == 2  %} checked {%endif%}
+                            id="textarea" /><label for="textarea">单选属性</label> 　
+                        <input type="radio" name="attr_type" value="3" {%if attr.attr_type == 3 %} checked {%endif%}
+                            id="select" /><label for="select">复选属性</label>　
+                    </li>
+
+                    <li> 　录入方式：
+                        <input type="radio" name="attr_input" value="1" {%if attr.attr_input==1 %} checked {%endif%}
+                            id="text" /><label for="text">单行录入</label> 　
+                        <input type="radio" name="attr_input" value="2" {%if attr.attr_input==2 %} checked {%endif%}
+                            id="select" /><label for="select">多行录入</label>　
+                    </li>
+                    <!-- <li>
+                        可选值列表：
+                        <textarea name="attr_value" id="attr_value" cols="60" rows="8">
+                                    {%-for value in attr.attr_value-%}
+                                    {{value+'\r\n'}}
+                                    {%-endfor-%}
+                                </textarea>
+                    </li> -->
+                    <li>
+                        数字排序：<input type="text" name="data_sort" value="{{attr.data_sort}}">
+                    </li>
+
+                    <li>
+                        <br />
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

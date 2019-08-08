@@ -1,0 +1,44 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+
+<div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="th">
+                <th>会员账号</th>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>最后登陆时间</th>
+                <th>最后登陆IP</th>
+                <th>状态</th>            
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                {%for useraccount in useraccounts %}
+                
+               
+                    <tr>
+                        <td>{{useraccount.login_name}}</td>
+                        <td>{{useraccount.user_name}}</td>
+                        <td>{{useraccount.user_email}}</td>                      
+                        <td>{{useraccount.last_time}}</td>                      
+                        <td>{{useraccount.last_ip}}</td>                      
+                        <td>
+                            {% if useraccount.user_status==1%}
+                            正常
+                            {%else%}
+                            暂停
+                            {%endif%}
+                        </td>                      
+                        <td class="text-center text">
+                            <a href="/admin/useraccount/edit?_id={{useraccount._id}}">修改</a>　　
+                         
+                        </td>
+                    </tr> 
+             
+                {%endfor%}      
+            </tbody>
+        </table>
+</div>
+

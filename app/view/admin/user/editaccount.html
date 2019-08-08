@@ -1,0 +1,31 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        修改会员账号
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/useraccount/doEdit" method="post">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="_id" value="{{useraccount._id}}">
+                <ul>
+                    <!-- <li> 会员头像: <input type="file" name="user_photo" value="{{user.user_photo}}"/> </span>/li> -->
+                    <li> 会员账号: <input type="text" name="login_name" value ="{{useraccount.login_name}}" /></li>
+                    <li> 会员昵称: <input type="text" name="user_name" value="{{useraccount.user_name}}" /></li>
+                    <li> 会员密码: <input type="text" name="login_pwd" /></li>
+                    <li> 会员状态:
+                            <input type="radio" name="user_status" {% if useraccount.user_status==1%} checked {%endif%}
+                                value="1" /> 正常
+                            <input type="radio" name="user_status" {% if useraccount.user_status==0%} checked {%endif%}
+                                value="0" /> 异常
+                        </li>
+                    <li>
+                        <br />
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

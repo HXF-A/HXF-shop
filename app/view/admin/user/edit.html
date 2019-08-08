@@ -1,0 +1,46 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        修改会员
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/user/doEdit" method="post">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="_id" value="{{user._id}}">
+                <ul>
+                    <!-- <li> 会员头像: <input type="file" name="user_photo" value="{{user.user_photo}}"/> </span>/li> -->
+                    <li> 会员账号: <span> {{user.login_name}} </span></li>
+                    <li> 会员昵称: <input type="text" name="user_name" value="{{user.user_name}}" /></li>
+                    <li> 会员类型:
+                        <input type="radio" name="user_type" {% if user.user_type==0%} checked {%endif%} value="0" />
+                        线上会员
+                        <input type="radio" name="user_type" {% if user.user_type==1%} checked {%endif%} value="1" />
+                        线下会员
+                    </li>
+                    <li> 会员性别:
+                        <input type="radio" name="user_sex" {% if user.user_sex==0%} checked {%endif%} value="0" /> 保密
+                        <input type="radio" name="user_sex" {% if user.user_sex==1%} checked {%endif%} value="1" /> 男
+                        <input type="radio" name="user_sex" {% if user.user_sex==2%} checked {%endif%} value="2" /> 女
+                    </li>
+
+                    <li> 会员微信: <input type="text" name="user_wechat" value="{{user.user_wechat}}" /></li>
+                    <li> 会员邮箱: <input type="text" name="user_email" value="{{user.user_email}}" /></li>
+
+                    <li> 会员积分: <input type="text" name="user_totalscore" value="{{user.user_totalscore}}" /></li>
+                    <li> 会员状态:
+                        <input type="radio" name="user_status" {% if user.user_status==1%} checked {%endif%}
+                            value="1" /> 正常
+                        <input type="radio" name="user_status" {% if user.user_status==0%} checked {%endif%}
+                            value="0" /> 异常
+                    </li>
+                    <li>
+                        <br />
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

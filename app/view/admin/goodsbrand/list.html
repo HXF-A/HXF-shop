@@ -1,0 +1,49 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品广告列表</span>
+        <a href="/admin/goodsbrand/add" class=" pull-right">增加商品广告</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>品牌名称</th>
+                        <th>品牌LOGO</th>
+                        <th>品牌网址</th>
+                        <th>品牌描述</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for brand in brands%}
+                    <tr>
+                        <td>{{brand.brand_name}}</td>
+                        <td>{%for logo in brand.brand_logo %}<img class="pic" src="{{helper.url200(logo)}}" alt=""
+                                width="30">{%endfor%}</td>
+                        <!-- <td>{{brand.brand_logo}}</td>   -->
+                        <td>{{brand.brand_url}}</td>
+                        <td>{{brand.brand_desc}}</td>
+                        <td>{{brand.data_sort}}</td>
+                        <td>
+                            {%if brand.brand_status==1 %}
+                            显示
+                            {%else%}
+                            隐藏
+                            {%endif%}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/goodsbrand/edit?_id={{brand._id}}">修改</a>　
+                            <a href="/admin/goodsbrand/delete?_id={{brand._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

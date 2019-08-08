@@ -1,0 +1,45 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        商品类型列表
+        <a href="/admin/goodstype/add" class="pull-right">增加商品类型</a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="th">
+                    <th>商品类型名称</th>
+                    <th>属性分组</th>
+                    <th>状态</th>
+                    <th class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {%for goodstype in goodstypes%}
+                <tr>
+                    <td>{{goodstype.type_name}}</td>
+                    <td>
+                        {%for attrgp in goodstype.attr_group%}
+                        {{attrgp}}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%if goodstype.type_status == 1%}
+                        开启
+                        {%else%}
+                        关闭
+                        {%endif%}
+                    </td>
+                    <td class="text-center text">
+                        <a href="/admin/goodstypeattr?_id={{goodstype._id}}">属性列表</a>　
+                        <a href="/admin/goodstype/edit?_id={{goodstype._id}}">修改</a>　　
+                        <a href="/admin/goodstype/delete?_id={{goodstype._id}}">删除</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>

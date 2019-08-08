@@ -1,0 +1,66 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品分类列表</span>
+        <a href="/admin/goodscategory/add" class=" pull-right">增加商品分类</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>分类名称</th>
+                        <th>分类图标</th>
+                        <th>跳转地址</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categorys %}
+                    <tr>
+                        <td>{{category.cate_name}}</td>
+                        <td><span class="glyphicon {{category.cate_icon}}"></td>
+                        <td>{{category.cate_url}}</td>
+                        <td>{{category.data_sort}}</td>
+                        <td>
+                            {% if category.cate_status == 1 %}
+                            显示
+                            {%elif category.cate_status == 0 %}
+                            隐藏
+                            {% endif %}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/goodscategory/edit?_id={{category._id}}">修改</a>　
+                            <a href="/admin/goodscategory/delete?_id={{category._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {% for subCate in category.subCategorys %}
+                    {%if subCate.data_status == 1%}
+                    <tr>
+                        <td>{{category.cate_name}}----{{subCate.cate_name}}</td>
+                        <td><span class="glyphicon {{subCate.cate_icon}}"></td>
+                        <td>{{subCate.cate_url}}</td>
+                        <td>{{subCate.data_sort}}</td>
+                        <td>
+                            {% if subCate.cate_status == 1 %}
+                            显示
+                            {%elif subCate.cate_status == 0 %}
+                            隐藏
+                            {% endif %}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/goodscategory/edit?_id={{subCate._id}}">修改</a>　
+                            <a href="/admin/goodscategory/delete?_id={{subCate._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endif%}
+                    {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

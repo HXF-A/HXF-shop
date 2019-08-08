@@ -1,0 +1,54 @@
+
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">              
+  <div class="panel-heading">
+        <span>{{goodstype.type_name}}类型</span>
+        <a href="/admin/goodstypeattr/add?_id={{goodstype._id}}" class="pull-right">增加属性</a>
+    </div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+          <thead>
+          <tr class="th">
+              <th>属性名称</th>
+              <th>商品类型</th>
+              <th>属性值的录入方式</th>
+              <!-- <th>可选值列表</th> -->
+              <th>排序</th>
+              <th class="text-center">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+                 
+                  {%for attr in goodstypeattrs%}
+                  <tr>
+                      <td>
+                          {{attr.attr_name}}
+                      </td>
+                      <td>{{goodstype.type_name}}</td>
+                      
+                      <td>
+                          {%if attr.attr_input == 1%}
+                          单行录入
+                          {%else%}
+                          多行录入
+                          {%endif%}
+                      </td>
+                      <!-- <td>
+                          {%for value in attr.attr_value%}
+                          {{value}}
+                          {%endfor%}
+                      </td> -->
+                      <td>
+                          {{attr.data_sort}}
+                      </td>
+                    <td class="text-center text">
+                        <a href="/admin/goodstypeattr/edit?_id={{attr._id}}">修改</a>　　
+                        <a href="/admin/goodstypeattr/delete?_id={{attr._id}}">删除</a>
+                    </td>
+                </tr> 
+                {%endfor%}
+        </tbody>
+    </table>
+  </div>
+</div>

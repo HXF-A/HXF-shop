@@ -1,0 +1,219 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="/public/admin/js/jquery.js"></script>
+<script src="/public/admin/js/bootstrap.min.js"></script>
+
+<!-- 富文本编辑器 -->
+<link href="/public/admin/other/wysiwyg-editor/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="/public/admin/other/wysiwyg-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="/public/admin/other/wysiwyg-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/public/admin/other/wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+<script type="text/javascript" src="/public/admin/other/wysiwyg-editor/js/zh_cn.js"></script>
+<!-- 富文本编辑器 -->
+<!-- 多文件上传图片相册 -->
+<link rel="stylesheet" href="/public/admin/other/webuploader/css/diyUpload.css">
+<link rel="stylesheet" href="/public/admin/other/webuploader/css/webuploader.css">
+<script src="/public/admin/other/webuploader/js/diyUpload.js"></script>
+<script src="/public/admin/other/webuploader/js/webuploader.html5only.min.js"></script>
+<!-- 多文件上传图片相册 -->
+
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>增加商品</span>
+        <button id="goods_button" class="pull-right">保存提交</button>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form id="goodsForm" action="/admin/goods/doAdd?_csrf={{csrf}}" method="post" enctype="multipart/form-data">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#base" aria-controls="base" role="tab"
+                                data-toggle="tab">基础信息</a></li>
+                        <li role="presentation"><a href="#desc" aria-controls="desc" role="tab"
+                                data-toggle="tab">详细描述</a></li>
+                        <li role="presentation"><a href="#other" aria-controls="other" role="tab"
+                                data-toggle="tab">附加信息</a></li>
+                        <li role="presentation"><a href="#attr" aria-controls="attr" role="tab"
+                                data-toggle="tab">规格与包装</a></li>
+                        <li role="presentation"><a href="#gallery" aria-controls="gallery" role="tab"
+                                data-toggle="tab">商品相册</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="base">
+                            <ul>
+                                <li> <span>商品标题:</span> <input type="text" name="goods_title" /></li>
+                                <li> <span>商品编号:</span> <input type="text" name="goods_sn" /></li>
+                                <li> <span>所属分类:</span>
+                                    <select name="category_id" id="category_id">
+                                        {%for cate in cates%}
+                                        <option value={{cate._id}}>{{cate.cate_name}}</option>
+                                        {%for subCategory in cate.subCategorys%}
+                                        <option value="{{subCategory._id}}">{{subCategory.cate_name}}</option>
+                                        {%endfor%}
+                                        {%endfor%}
+                                    </select>
+                                </li>
+                                <li> <span>商品品牌:</span>
+                                    <select name="brand_id" id="brand_id">
+                                        {%for brand in brands%}
+                                        <option value="{{brand._id}}">{{brand.brand_name}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </li>
+                                <li> <span>商品图片:</span> <input type="file" name="goods_img" /></li>
+                                <li> <span>商品简介:</span> <input type="text" name="goods_brief" /></li>
+                                <li> <span>市场价格: </span><input type="text" name="price_market" /></li>
+                                <li> <span>销售价格: </span><input type="text" name="price_selling" /></li>
+                                <li> <span>促销价格: </span><input type="text" name="price_promote" /></li>
+                                <li> <span>库存数量: </span><input type="text" name="stock_number" /></li>
+                                <li> <span>预售数量: </span><input type="text" name="stock_warn" /></li>
+                                <li> <span>是否促销:</span>
+                                    <input type="radio" name="is_pomote" value="1" id="a" checked /> <label
+                                        for="a">开启</label>
+                                    <input type="radio" name="is_pomote" value="0" id="b" /><label for="b">关闭</label>
+                                </li>
+                                <li> <span>加入推荐:</span>
+                                    <input type="radio" name="is_best" value="1" id="a" /> <label
+                                        for="a">精品</label>
+                                    <input type="radio" name="is_hot" value="1" id="b" /><label for="b">热销</label>
+                                    <input type="radio" name="is_new" value="1" id="c" /><label for="c">新品</label>
+                                </li>
+                                <li> <span>虚拟商品:</span>
+                                    <input type="radio" name="is_real" value="1" id="a" checked /> <label
+                                        for="a">实物</label>
+                                    <input type="radio" name="is_real" value="0" id="b" /><label for="b">虚拟</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="desc">
+                            <textarea id="content" name="goods_desc" cols="80" rows="60"></textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="other">
+                            <ul>
+                                <li> <span>商品单位: </span><input type="text" name="goods_unit" class="input" /></li>
+                                <li> <span>商品重量:</span> <input type="text" name="goods_weight" class="input" /></li>
+                                <li> <span>商品关键词: </span><input type="text" name="goods_keys" class="input" /></li>
+                                <li> <span>关联商品:</span> <input type="text" name="relate_goods" class="input"
+                                        placeholder="注：【Objectid逗号隔开】" /><span>注：【Objectid逗号隔开】</span></li>
+                                <li> <span>关联礼物:</span> <input type="text" name="relate_gifts" class="input"
+                                        placeholder="注:【Objectid逗号隔开】" /><span>注：【Objectid ","逗号隔开】</span></li>
+                                <li> <span>关联配件:</span> <input type="text" name="relate_parts" class="input"
+                                        placeholder="【Objectid ','逗号隔开】】" /><span>注：【Objectid ","逗号隔开】】</span></li>
+                                <li> <span>关联文章:</span> <input type="text" name="relate_articles" class="input"
+                                        placeholder="注：【Objectid ','逗号隔开】" /><span>注：【Objectid ","逗号隔开】</span></li>
+                                <li> <span>商品状态:</span>
+                                    <input type="radio" name="is_sale" value="1" id="a" checked /> <label
+                                        for="a">上架</label>
+                                    <input type="radio" name="is_sale" value="0" id="b" /><label for="b">下架</label>
+                                </li>
+                                <li> <span>商品状态:</span>
+                                    <input type="radio" name="data_status" value="1" id="a" checked /> <label
+                                        for="a">显示</label>
+                                    <input type="radio" name="data_status" value="0" id="b" /><label for="b">隐藏</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="attr">规格与包装
+                            <ul>
+                                <li> <span>商品类型:</span>
+                                    <select name="type_id" id="type_id">
+                                        <option value="0">请选择商品类型</option>
+                                        {%for type in types%}
+                                        <option value="{{type._id}}">{{type.type_name}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </li>
+                            </ul>
+                            <ul class="from_input" id="type_attr">
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="gallery">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    增加商品相册
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive input-form">
+                                        <div class="photoLib" id="photoLib"></div>
+                                        <div id="photoList">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // 富文本编辑器设置
+        $(function () {
+            $('#content').froalaEditor({
+                height: 500,    //给编辑器设置默认的高度
+                language: 'zh_cn',
+                imageUploadURL: '/admin/goods/doUpload?_csrf={{csrf}}',
+                fileUploadURL: '/admin/goods/doUpload?_csrf={{csrf}}',
+                //根据不同的分辨率加载不同的配置
+                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+                toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+                toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo']
+            });
+        });
+    })
+
+    //商品相册多文件上传
+    $(function () {
+        var photoStr = "";
+        $("#photoLib").diyUpload({
+            url: '/admin/goods/doUpload?_csrf={{csrf}}',
+            success: function (response) {                                        //返回数组（‘/public..../a.jpg）
+                photoStr = '<input type="hidden" name="relate_gallerys" value=' + response.link + ' />';
+                //放入photoList列表
+                $("#photoList").append(photoStr);
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
+    $(function () {
+        //商品类型 关联
+        $('#type_id').change(function () {
+            var type_id = $(this).val();
+            if (type_id == 0) {
+                $('#type_attr').hide();
+                return;
+            } else {
+                $('#type_attr').show()
+                var data = '';
+                $.get('/admin/goods/getTypeAttrs?type_id=' + type_id, function (response) {
+                    // json解析问题
+                    data = response.data;
+                    var str = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].attr_type == 1) {//1:唯一属性2:单选3:复选
+                            str += '<li><span>' + data[i].attr_name + ': </span><input type="hidden" name="attr_id_list" value="' + data[i]._id + '" />  <input type="text" name="attr_value_list" /></li>'
+                        } else {
+                            str += '<li><span>' + data[i].attr_name + ': </span><input type="hidden" name="attr_id_list" value="' + data[i]._id + '" />'
+                            str += '<textarea name="attr_value_list"  rows="5" cols="30">';
+
+                            str += '</textarea> ';
+                            str += '</li>';
+                        }
+                    }
+                    $('#type_attr').html(str);
+                })
+            }
+        })
+    })
+    $(function () {
+        $('#goods_button').on('click', function () {
+            $('#goodsForm').submit();
+        })
+    })
+</script>
