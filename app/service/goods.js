@@ -14,7 +14,7 @@ class GoodsService extends Service {
             fromStream,
             filePath.targetPath
           ); //上传来源流
-          links.push(filePath.dbPath);
+          links.push(filePath.dbPath);  
         } else {
           continue;
         }
@@ -125,7 +125,6 @@ class GoodsService extends Service {
       return { flag: false, msg: "通过商品ID查询商品失败" };
     }
   }
-
   //删除数据库相册
   async deleteImg(goods_id, img_url) {
     try {
@@ -165,7 +164,6 @@ class GoodsService extends Service {
 
       // console.log("xxxxx" + JSON.stringify(body));
       //console.log("vvvvvv" + body.relate_goods);
-
       if (fromStream && fromStream.filename) {
         var filePath = await this.ctx.service.tool.filePath(
           fromStream.filename
@@ -196,7 +194,6 @@ class GoodsService extends Service {
       body.relate_parts = body.relate_parts.trim().split(",");
       body.relate_articles = body.relate_articles.trim().split(",");
       //处理商品属性值转化为数组
-
       var attr_values = body.attr_value_list;
       var attr_ids = body.attr_id_list;
       if (typeof body.attr_value_list == "string") {

@@ -119,6 +119,20 @@ module.exports = app => {
   router.post("/admin/comment/doAdd", controller.admin.comment.doAdd);
   router.get('/admin/comment/delete',controller.admin.comment.delete)
   
+  router.get('/admin/comment/insertMany',controller.admin.comment.insertMany)
+
+  router.get('/admin/comment/detail',controller.admin.comment.detail)
+  router.get("/admin/comment/doDetail", controller.admin.comment.doDetail);
+
+  //广告管理
+  router.get("/admin/advertise", controller.admin.advertise.list);
+  router.get("/admin/advertise/add",controller.admin.advertise.add)
+  router.post("/admin/advertise/doAdd", controller.admin.advertise.doAdd);
+  router.get("/admin/advertise/edit",controller.admin.advertise.edit)
+  router.post("/admin/advertise/doEdit", controller.admin.advertise.doEdit);
+  router.get('/admin/advertise/delete',controller.admin.advertise.delete)
+  
+  
 
 
 //相册管理

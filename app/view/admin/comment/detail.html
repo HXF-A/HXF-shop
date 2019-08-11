@@ -1,0 +1,46 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+
+<script src="/public/admin/js/jquery.js"></script>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        详情
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <ul>
+                <li> <span>商品名称:</span><span>XXX商品</span></li>
+                <li> <span>评论信息:</span> <span>
+                        {{comments.comment_content}}
+                    </span></li>
+                <li> <span>评论等级:</span><span>
+                        {{comments.comment_rank}}
+                    </span></li>
+                <li> <span>评论用户:</span><span>
+                        {{comments.user_name}}
+                    </span></li>
+                <li> <span>评论用户ip:</span><span>
+                        {{comments.user_ip}}
+                    </span></li>
+                <li> <span>评论时间:</span><span>
+                        {{helper.dateFormat(comments.comment_time)}}
+                    </span></li>
+                <li> <br />
+                    <button class="btn btn-default" id="comment_review">
+                        {% if comments.comment_status == 0 %}
+                        通过审核
+                        {% else %}
+                        关闭审核
+                        {% endif%}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#comment_review").click(function () {
+        location.href = '/admin/comment/doDetail?_id={{comments._id}}&comment_status={{comments.comment_status}}&page=' + {{page}};
+    });
+</script>

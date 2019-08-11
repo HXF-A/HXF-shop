@@ -22,7 +22,6 @@ class GoodsBrandService extends Service {
           //filePath  <=fromStream(fromStream.filename)方法返回
           var filePath = await this.service.tool.filePath(fromStream.filename); //找到tergetPath目标路径与dbPath相对路径
           //filePath：{ targetPath: 'app/public/admin/upload/20190726/1564110932558.jpg',   dbPath: '/public/admin/upload/20190726/1564110932558.jpg' }
-          //console.log(fromStream);
           await this.ctx.service.tool.uploadFile(
             fromStream,
             filePath.targetPath
@@ -51,7 +50,15 @@ class GoodsBrandService extends Service {
       var fromStream;
       var brandLogos = [];
       while ((fromStream = await parts()) != null) {
-        if (fromStream && fromStream.filename) { 
+        var body = parts.field;
+        var _id = body._id;
+        if (!fromStream.filename) {
+          //注意如果没有传入图片直接返回
+          await this.ctx.model.GoodsBrand.update({ _id: _id }, body);
+          return { flag: true, msg: "修改商品品牌成功" };
+        }
+        
+        if (fromStream.filename) {
           var filePath = await this.service.tool.filePath(fromStream.filename); //找到tergetPath目标路径与dbPath相对路径
           await this.ctx.service.tool.uploadFile(
             fromStream,
@@ -59,11 +66,7 @@ class GoodsBrandService extends Service {
           ); //上传来源流
           brandLogos.push(filePath.dbPath);
           await this.ctx.service.tool.jimp(filePath.targetPath);
-          var body = parts.field;
-
-          var _id = body._id;
           Object.assign(body, { brand_logo: brandLogos });
-
           var object = await this.ctx.model.GoodsBrand.findOne(
             { _id: _id },
             { _id: 0, brand_logo: 1 }
@@ -82,7 +85,7 @@ class GoodsBrandService extends Service {
             });
           }
         } else {
-          continue;
+          break;
         }
       }
       await this.ctx.model.GoodsBrand.update({ _id: _id }, body);
@@ -122,19 +125,13 @@ class GoodsBrandService extends Service {
         { _id: _id },
         { _id: 0, brand_logo: 1 }
       );
-      //console.log(object);
       var brandLogo = object.brand_logo;
-      //console.log(brandLogo);
-
       if (brandLogo) {
         brandLogo.forEach(element => {
           var path1 = "app" + element;
           var path2 = this.ctx.helper.url200(path1);
-          console.log(path2);
           fs.unlinkSync(path2);
           fs.unlinkSync(path1);
-
-          //fs.unlinkSync(path2);
         });
       }
       //单文件上传

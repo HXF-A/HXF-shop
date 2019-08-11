@@ -1,0 +1,64 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>名称</th>
+                        <th>分类</th>
+                        <th>图片</th>
+                        <th>跳转地址</th>
+                        <th>位置</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for advertise in advertises%}
+                    <tr>
+                        <td>{{advertise.ads_title}}</td>
+                          <!-- //1网站，2app，3小程序 -->
+                        {%if advertise.ads_type == 1%}
+                        <td>网站</td>
+                        {%elif advertise.ads_type == 2%}
+                        <td>app</td>
+                        {%else%}
+                        <td>小程序</td>
+                        {%endif%}
+                        <td>{%for img in advertise.ads_img %}<img class="pic" src="{{helper.url200(img)}}" alt=""
+                                width="30">{%endfor%}</td>
+                       <!-- //1上，2中，3左，4右，5下 -->
+                        <td>{{advertise.ads_link}}</td>
+                        {%if advertise.ads_position == 1 %}
+                        <td>上</td>
+                        {%elif advertise.ads_position == 2%}
+                        <td>中</td>
+                        {% elif advertise.ads_position == 3%}
+                        <td>左</td>
+                        {%elif advertise.ads_position == 4%}
+                        <td>右</td>
+                        {%else%}
+                        <td>下</td>
+                        {%endif%}
+                        <td>{{advertise.data_sort}}</td>
+                        <td>
+                            {%if advertise.data_status==1 %}
+                            显示
+                            {%else%}
+                            隐藏
+                            {%endif%}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/advertise/edit?_id={{advertise._id}}">修改</a>　
+                            <a href="/admin/advertise/delete?_id={{advertise._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

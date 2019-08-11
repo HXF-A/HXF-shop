@@ -44,9 +44,12 @@ class GoodsCategoryService extends Service {
               $filter: {
                 input: "$subCategorys",
                 as: "item",
-                cond: { $eq: ["$$item.data_status", 1] }
-              }
+                cond: { $eq: ["$$item.data_status", 1]},//条件
+                
+              },
+            
             }
+
           }
         }
       ]).sort({ data_sort: 1 });

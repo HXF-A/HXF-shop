@@ -1,5 +1,7 @@
 <link rel='stylesheet' href="/public/admin/css/base.css">
 <link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="../../../public/admin/js/jquery.js"></script>
+<script src="../../../public/admin/other/page/jqPaginator.js"></script>
 <div class="panel panel-default">
     <div class="panel-heading clear">
         <span>商品广告列表</span>
@@ -27,19 +29,19 @@
                         {%else%}
                         <td>商品</td>
                         {%endif%}
-                      <td>{{comment.comment_content}}</td>
+                      <td style="white-space:nowarp;max-width:500px;text-overflow:ellipsis;overflow:hidden;">{{comment.comment_content}}</td>
                         <td>{{comment.user_name}}</td>
                         <td>{{comment.user_ip}}</td>
                         <td>{{helper.dateFormat(comment.comment_time)}}</td>
                         <td>
                             {%if comment.comment_status==1 %}
-                            显示批准
+                           <span class="glyphicon glyphicon-ok icon-color-green"></span>
                             {%else%}
-                            未显示批准
+                            <span class="glyphicon glyphicon-remove icon-color-red"></span>
                             {%endif%}
                         </td>
                         <td class="text-center text">　
-                            <a href="/admin/comment/edit?_id={{comment._id}}">修改</a>　
+                            <a href="/admin/comment/detail?_id={{comment._id}}&targetPage={{totalPage}}">详情</a>　
                             <a href="/admin/comment/delete?_id={{comment._id}}">删除</a>
                         </td>
                     </tr>
@@ -47,6 +49,23 @@
                 </tbody>
                 
             </table>
+            <div id="page" class="pagination fr ">
+             
+            </div>
         </div>
     </div>
 </div>
+<script>
+
+    $('#page').jqPaginator({
+        totalPages:{{totalPage}},
+        visiblePages:3,
+        currentPage:{{page}},
+        onPageChange:function(num,type){
+            if(type == 'change'){
+                console.log(num);
+                location.href = "/admin/comment?page="+num
+            }
+        }
+    })
+    </script>
