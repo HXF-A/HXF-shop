@@ -71,9 +71,9 @@ class GoodsCateGoryController extends BaseController {
     var _id = ctx.request.query._id;
     var result = await ctx.service.goodscategory.delete(_id);
     if (result.flag) {
-      await this.success(this.ctx.locals.lastPage, result.msg);
+      await this.success(ctx.locals.lastPage, result.msg);
     } else {
-      await this.fail(this.ctx.locals.lastPage, result.msg);
+      await this.fail(ctx.locals.lastPage, result.msg);
     }
   }
 }

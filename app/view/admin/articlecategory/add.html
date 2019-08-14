@@ -1,0 +1,38 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        增加文章分类
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/articlecategory/doAdd" method="post">
+                <ul>
+                    <li> <span>分类名称:</span> <input type="text" name="acate_title" /></li>
+                    <li> <span>上级分类:</span>
+                        <select name="acate_pid" id="acate_pid">
+                            <option value="0">顶级分类</option>
+                            {%for category in topcategorys%}
+                            <option value="{{category._id}}">{{category.acate_title}}</option>
+                            {%endfor%}
+                        </select>
+                    </li>
+                    <li> <span>分类图标:</span> <input type="text" name="acate_icon" /></li>
+                    <li> <span>跳转地址:</span> <input type="text" name="acate_link" /></li>
+                    <li> <span>SEO标题: </span><input type="text" name="acate_subtitle" /></li>  
+                    <li> <span>SEO关键词: </span><input type="text" name="acate_keys" /></li>
+                    <li> <span>SEO描述:</span> <textarea name="acate_desc" id="acate_desc" cols="84" rows="4"></textarea>
+                    </li>
+                    <li> <span>排　　序:</span> <input type="text" name="data_sort" value="50" /></li>
+                    <li> <span>状　　态:</span>
+                        <input type="radio" name="acate_status" value="1" id="a" checked /> <label for="a">显示</label>
+                        <input type="radio" name="acate_status" value="0" id="b" /><label for="b">隐藏</label></li>
+                    <li>
+                        <br />
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

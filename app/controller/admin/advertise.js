@@ -56,9 +56,9 @@ class AdvertiseController extends BaseController {
     var _id = ctx.request.query._id
     var result = await ctx.service.advertise.delete(_id)
     if(result.flag){
-      await this.success('/admin/advertise',result.msg)
+      await this.success(ctx.locals.lastPage,result.msg)
     }else{
-      await this.fail('/admin/advertise',result.msg)
+      await this.fail(ctx.locals.lastPage,result.msg)
     }
   }
 }

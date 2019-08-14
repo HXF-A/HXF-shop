@@ -70,7 +70,6 @@ class GoodsService extends Service {
         var attr_group = typeAttr.attr_group;
         var attr_type = typeAttr.attr_type;
         //拼接存储
-
         await this.ctx.service.goodsattr.insert({
           goods_id: goods_id,
           type_id: type_id,
@@ -110,7 +109,7 @@ class GoodsService extends Service {
       return { flag: false, msg: "数据异常，获取所有商品失败" };
     }
   }
-  //findById查找
+  //findById查找商品
   async findById(_id) {
     try {
       var goodsFindById = await this.ctx.model.Goods.findById({
@@ -240,6 +239,7 @@ class GoodsService extends Service {
       return { flag: false, msg: "商品保存失败" };
     }
   }
+//软删除商品
   async deleteUpdate(_id) {
     try {
       await this.ctx.model.Goods.updateOne({ _id: _id }, { data_status: 0 });
@@ -248,6 +248,7 @@ class GoodsService extends Service {
       return { flag: false, msg: "软删除商品数据失败" };
     }
   }
+  //通过id查找全部商品
   async findAll(_id){
     try {
           var goodss = await this.ctx.model.Goods.find({_id:_id})
@@ -258,6 +259,7 @@ class GoodsService extends Service {
 
 
   }
+  //不会写硬件删除的富文本的本地删除
   async delete(_id){
     try {
       var deleteGoods = await this.ctx.service.goods.findAll(_id)
@@ -268,6 +270,20 @@ class GoodsService extends Service {
     }
     
 
+  }
+
+
+
+  //通过type_id查找商品，为导航做准备
+  async findByCategoryId(category_id){
+    try {
+      console.log('aaaa'+category_id);
+      
+      var categoryIGoods = await this.ctx.model.Goods.find({category_id:category_id})
+      return {flag:true,data:categoryIGoods,msg:'通过category_id查找goods商品成功'}
+    } catch (error) {
+      return {flag:false,msg:'数据异常，通过category_id查找goods商品失败'}
+    }
   }
 }
 

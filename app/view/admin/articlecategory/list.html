@@ -1,0 +1,76 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品分类列表</span>
+        <a href="/admin/articlecategory/add" class=" pull-right">增加文章分类</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>分类名称</th>
+                        
+                        <th>分类图标</th>
+                        <th>跳转地址</th>
+                        <th>Seo标题</th>
+                        <th>Seo关键词</th>
+                        <th>Seo描述</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for category in categorys %}
+                        <tr>
+                            <td>{{category.acate_title}}</td>
+                            <td><span class="glyphicon {{category.acate_icon}}"></td>
+                            <td>{{category.acate_link}}</td>
+                            <td>{{category.acate_subtitle}}</td>
+                            <td>{{category.acate_keys}}</td>
+                            <td>{{category.acate_desc}}</td>
+                            <td>{{category.data_sort}}</td>
+                            <td>
+                                {% if category.acate_status == 1 %}
+                                显示
+                                {%elif category.acate_status == 0 %}
+                                隐藏
+                                {% endif %}
+                            </td>
+                            <td class="text-center text">　
+                                <a href="/admin/articlecategory/edit?_id={{category._id}}">修改</a>　
+                                <a href="/admin/articlecategory/delete?_id={{category._id}}">删除</a>
+                            </td>
+                        </tr>
+                        {% for subCate in category.subCategorys %}
+                        {%if subCate.acate_status == 1%}
+                        <tr>
+                            <td>{{category.acate_title}}----{{subCate.acate_title}}</td>
+                            <td><span class="glyphicon {{subCate.acate_icon}}"></td>
+                            <td>{{subCate.acate_link}}</td>
+                            <td>{{subCate.acate_subtitle}}</td>
+                            <td>{{subCate.acate_keys}}</td>
+                            <td>{{subCate.acate_desc}}</td>
+                            <td>{{subCate.data_sort}}</td>
+                            <td>
+                                {% if subCate.acate_status == 1 %}
+                                显示
+                                {%elif subCate.acate_status == 0 %}
+                                隐藏
+                                {% endif %}
+                            </td>
+                            <td class="text-center text">　
+                                <a href="/admin/articlecategory/edit?_id={{subCate._id}}">修改</a>　
+                                <a href="/admin/articlecategory/delete?_id={{subCate._id}}">删除</a>
+                            </td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

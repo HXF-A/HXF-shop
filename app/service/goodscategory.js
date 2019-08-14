@@ -1,3 +1,4 @@
+//总体字段还有问题data_status与cate_status
 const { Service } = require("egg");
 class GoodsCategoryService extends Service {
   async find() {
@@ -34,8 +35,9 @@ class GoodsCategoryService extends Service {
             cate_icon: 1,
             cate_keys: 1,
             cate_desc: 1,
+            cate_url:1,
             cate_template: 1,
-            cate_sataus: 1,
+            cate_status: 1,
             data_sort: 1,
             data_status: 1,
             cate_pid: 1,

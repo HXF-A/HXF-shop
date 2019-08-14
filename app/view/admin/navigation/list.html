@@ -1,0 +1,76 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="../../../public/admin/js/jquery.js"></script>
+<script src="../../../public/admin/other/page/jqPaginator.js"></script>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>分类名称</th>
+                        <th>ICON</th>
+                        <th>跳转地址</th>
+                        <th>位置</th>
+                        <th>打开方式</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for navigation in navigations%}
+                    <tr>
+                        <td>{{navigation.nav_name}}</td>
+                        <td><span class="glyphicon {{navigation.nav_icon}} " style="color:greenyellow"/> </td>
+                        <td>{{navigation.nav_link}}</td>
+                        {%if navigation.nav_position == 1 %}
+                        <td>上</td>
+                        {%elif navigation.nav_position == 2%}
+                        <td>中</td>
+                        {%else%}
+                        <td>下</td>
+                        {%endif%}
+
+                        {%if navigation.nav_open == 1%}
+                        <td>本窗口</td>
+                        {%else%}
+                        <th>新窗口</th>
+                        {%endif%}
+                        <td>{{navigation.data_sort}}</td>
+                        <td>
+                            {%if navigation.nav_status==1 %}
+                           <span class="glyphicon glyphicon-ok icon-color-green " ></span>
+                            {%else%}
+                            <span class="glyphicon glyphicon-remove icon-color-red " ></span>
+                            {%endif%}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/navigation/edit?_id={{navigation._id}}&page={{page}}">修改</a>　
+                            <a href="/admin/navigation/delete?_id={{navigation._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="page" class="pagination fr">
+
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+
+        $('#page').jqPaginator({
+            totalPages:{{totalPage}},
+            visiblePages:3,
+            currentPage:{{page}},
+            onPageChange:function(num,type){
+                if(type == 'change'){
+                    console.log(num);
+                    
+                    location.href = "/admin/navigation?page="+num
+                }
+            }
+        })
+        </script>

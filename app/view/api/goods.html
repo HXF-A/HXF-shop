@@ -1,0 +1,27 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<style>
+td{
+    text-align: center;
+}
+</style>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="th">
+                </tr>
+            </thead>
+            <tbody>
+             <tr>
+                 {%for good in goods%}
+                 <td>
+                      <a href="#">   <img src="{{good.goods_img}} " width="200"></a>
+                     
+                 </td>
+                 {%endfor%}
+             </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -32,7 +32,7 @@ class AdvertiseService extends Service {
   //查找全部
   async findAll() {
     try {
-      var advertises = await this.ctx.model.Advertise.find({});
+      var advertises = await this.ctx.model.Advertise.find({}).sort({data_sort:1});
       return { flag: true, data: advertises, msg: "查找全部广告成功" };
     } catch (error) {
       return { flag: false, msg: "数据异常，查找全部广告失败" };
