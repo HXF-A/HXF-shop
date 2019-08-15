@@ -27,6 +27,7 @@ class GoodsCategoryService extends Service {
             data_status: 1
           }
         },
+
         //按照条件查找
         {
           $project: {
@@ -35,7 +36,7 @@ class GoodsCategoryService extends Service {
             cate_icon: 1,
             cate_keys: 1,
             cate_desc: 1,
-            cate_url:1,
+            cate_url: 1,
             cate_template: 1,
             cate_status: 1,
             data_sort: 1,
@@ -46,15 +47,22 @@ class GoodsCategoryService extends Service {
               $filter: {
                 input: "$subCategorys",
                 as: "item",
-                cond: { $eq: ["$$item.data_status", 1]},//条件
-                
-              },
-            
+                cond: { $eq: ["$$item.data_status", 1] } ,//条件
+              
+              }
             }
-
+          }
+        },
+        {
+          $sort: {
+            data_sort: 1,
+            'subCategorys[0].data_sort':1
           }
         }
-      ]).sort({ data_sort: 1 });
+      ]);
+      
+      console.log(JSON.stringify(goodscategorys));
+      
       return { flag: true, data: goodscategorys, msg: "查找全部分类成功" };
     } catch (error) {
       return { flag: false, msg: "查找全部分类失败" };

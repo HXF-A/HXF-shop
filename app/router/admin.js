@@ -149,8 +149,16 @@ module.exports = app => {
   router.get('/admin/articlecategory/delete',controller.admin.articlecategory.delete)
 
   //文章列表管理
-  
-  
+   router.get('/admin/article',controller.admin.article.list)
+   router.get('/admin/article/add',controller.admin.article.add)
+   router.post('/admin/article/doAdd', controller.admin.article.doAdd);
+   router.get('/admin/article/edit',controller.admin.article.edit)
+   router.post('/admin/article/doEdit', controller.admin.article.doEdit);
+   router.get('/admin/article/delete',controller.admin.article.delete)
+   
+  router.post('/admin/article/doUpload', controller.admin.article.doUpload);
+ 
+ 
 
 //测试
 router.get('/admin/categoryGoods',controller.api.goods.list)

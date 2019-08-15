@@ -1,0 +1,97 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="/public/admin/js/jquery.js"></script>
+<script src="/public/admin/js/bootstrap.min.js"></script>
+
+<!-- 富文本编辑器 -->
+<link href="/public/admin/other/wysiwyg-editor/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="/public/admin/other/wysiwyg-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="/public/admin/other/wysiwyg-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/public/admin/other/wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+<script type="text/javascript" src="/public/admin/other/wysiwyg-editor/js/zh_cn.js"></script>
+<!-- 富文本编辑器 -->
+
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>增加文章</span>
+        <button id="article_button" class="pull-right">保存提交</button>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form id="articleForm" action="/admin/article/doEdit?_csrf={{csrf}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_id" value="{{article._id}}">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#base" aria-controls="base" role="tab"
+                                data-toggle="tab">基础信息</a></li>
+                        <li role="presentation"><a href="#desc" aria-controls="desc" role="tab"
+                                data-toggle="tab">详细描述</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="base">
+                            <ul>
+                                <li> <span>商品标题:</span> <input type="text" name="article_title" value="{{article.article_title}}"/></li>
+                                <li> <span>所属分类:</span>
+                                    <select name="article_cateid" id="article_cateid">
+                                        {%for cate in cates%}
+                                        <option value={{cate._id}} {%if article.article_cateid.toString() == cate._id.toString()%} selected {%endif%}>{{cate.acate_title}}</option>
+                                        {%for subCategory in cate.subCategorys%}
+                                        <option value="{{subCategory._id}}" {%if article.article_cateid.toString() == subCategory._id.toString()%} selected {%endif%}>{{subCategory.acate_title}}</option>
+                                        {%endfor%}
+                                        {%endfor%}
+                                    </select>
+                                </li>
+                                <li> <span>封面图片:</span>
+                                     <input type="file" name="article_img" />
+                                     <br>
+                                <img src="{{article.article_img}}" width="200" >
+                                </li>
+                                <li> <span>跳转地址:</span> <input type="text" name="article_link" value="{{article.article_link}}"/></li>
+                                <li> <span>Seo关键词: </span><input type="text" name="article_keys" value="{{article.article_keys}}"/></li>
+                                <li> <span>Seo描述: </span>
+                                <textarea name="article_content" cols="100" rows="5">{{article.article_content}}</textarea>
+                                <li> <span>排序: </span><input type="text" name="data_sort" value="{{article.data_sort}}"/></li>
+                                <li> <span>状态:</span>
+                                    <input type="radio" name="article_status" value="1" id="a" {%if article.article_status == 1%} checked {%endif%}/> <label
+                                        for="a">显示</label>
+                                    <input type="radio" name="article_status" value="0" id="b" {%if article.article_status == 0%} checked {%endif%}/><label for="b">隐藏</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="desc">
+                            <textarea id="content" name="article_desc" cols="80" rows="60">
+                                {{article.article_desc}}
+                            </textarea>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // 富文本编辑器设置
+        $(function () {
+            $('#content').froalaEditor({
+                height: 500,    //给编辑器设置默认的高度
+                language: 'zh_cn',
+                imageUploadURL: '/admin/article/doUpload?_csrf={{csrf}}',
+                fileUploadURL: '/admin/article/doUpload?_csrf={{csrf}}',
+                //根据不同的分辨率加载不同的配置
+                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+                toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+                toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo']
+            });
+        });
+    })
+
+    $(function () {
+        $('#article_button').on('click', function () {
+            $('#articleForm').submit();
+        })
+    })
+</script>

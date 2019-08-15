@@ -1,0 +1,69 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<script src="../../../public/admin/js/jquery.js"></script>
+<script src="../../../public/admin/other/page/jqPaginator.js"></script>
+<div class="panel panel-default">
+    <div class="panel-heading clear">
+        <span>商品广告列表</span>
+        <a href="/admin/article/add" class=" pull-right">增加文章内容</a>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>文章名称</th>
+                        <th>文章图片</th>
+                        <th>所属分类</th>
+                        <th>增加日期</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for article in articles%}
+                    <tr>
+                        <td>{{article.article_title}}</td>
+                        <td>
+                          
+                            <img  src="{{helper.url200(article.article_img )}}" width="30">
+                         
+                        </td>
+                        
+                        <td>{{article.article_cateid}}</td>
+                        <td>{{helper.dateFormat(article.creat_time)}}</td>
+                        <td>{{article.data_sort}}</td>
+                        <td>
+                            {%if article.article_status==1 %}
+                            显示
+                            {%else%}
+                            隐藏
+                            {%endif%}
+                        </td>
+                        <td class="text-center text">　
+                            <a href="/admin/article/edit?_id={{article._id}}">修改</a>　
+                            <a href="/admin/article/delete?_id={{article._id}}">删除</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="page" class="pagination fr">
+
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+        $('#page').jqPaginator({
+            totalPages: {{ totalPage }},
+            visiblePages: 3,
+            currentPage: {{ page }},
+            onPageChange: function (num, type) {
+                if (type == 'change') {
+                    location.href = "/admin/article?page=" + num
+                }
+            }
+    })
+    </script>

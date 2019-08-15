@@ -101,7 +101,7 @@ class GoodsService extends Service {
         .limit(pageSize);
 
       return {
-        falg: true,
+        flag: true,
         data: { goodss: goodss, totalPage: totalPage, page: page },
         msg: "获取商品成功 "
       };

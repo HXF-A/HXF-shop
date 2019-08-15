@@ -81,10 +81,7 @@ class ArticleCategoryService extends Service {
   //修改操作update
   async update(_id, body) {
     try {
-      console.log(body);
-      var xxx = await this.ctx.model.ArticleCategory.update({ _id: _id }, body);
-      console.log(xxx);
-
+      await this.ctx.model.ArticleCategory.update({ _id: _id }, body);
       return { flag: true, msg: "按照id更新成功" };
     } catch (error) {
       return { flag: false, msg: "数据异常，按照id更新失败" };
@@ -107,7 +104,7 @@ class ArticleCategoryService extends Service {
     try {
       var object = await this.ctx.model.ArticleCategory.findOne(
         { _id: _id },
-        { _id: 0, acate_id:1 }
+        { _id: 0, acate_id: 1 }
       );
       var acatePid = object.acate_pid;
       if (acatePid == "0") {
@@ -120,7 +117,7 @@ class ArticleCategoryService extends Service {
           { _id: _id },
           { acate_status: 0 }
         );
-      }else{
+      } else {
         await this.ctx.model.ArticleCategory.updateOne(
           { _id: _id },
           { acate_status: 0 }
