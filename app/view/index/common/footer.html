@@ -1,0 +1,27 @@
+ <!-- 底部 -->
+ <footer class=" ">	
+        <div class="div1">
+            <h4>关于我们</h4>
+            <span>哈尔滨布卡科技有限公司</span><br/>
+            <span>service@buka.com</span><br/>
+            <span>公众号：bukakeji</span><br/>
+        </div>
+
+        <div class="div2">
+            <h4>客户服务</h4>
+            {%for nav in navigationBottoms%}
+                    <a href="{{nav.nav_link}}" {%if nav.nav_open == 1 %} target="_self" {% else %} target="_blank" {% endif %}>
+                        <span>{{nav.nav_name}}</span>
+                    </a><br/>
+                    {%endfor%}
+        </div> 
+
+        <div class="div3">
+            <h4>工作生活</h4>
+            {%for nav in navigationBottoms%}
+                    <a href="{{nav.nav_link}}" {%if nav.nav_open == 1 %} target="_self" {% else %} target="_blank" {% endif %}>
+                        <span>{{nav.nav_name}}</span>
+                    </a><br/>
+                    {%endfor%}
+        </div>
+    </footer>

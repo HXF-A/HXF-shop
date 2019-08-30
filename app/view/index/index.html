@@ -2,11 +2,348 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=h2, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../public/admin/css/style.css">
+    <link rel="stylesheet" href="../../public/admin/css/swiper.min.css">
+    <script src="../../public/admin/js/jquery.js"></script>		
+    <script src="../../public/admin/js/swiper.min.js"> </script>
 </head>
+<style>
+        .swiper-container {
+            width: 600px;
+            height: 300px;
+        } 
+        </style>
 <body>
-    <h2>前台首页</h2>
+    <!-- 头部 -->
+    <header>
+        <div class="top">
+            <div class="logo fl">
+                    <a href="/">
+                        <span class="ml40"> BK-SHOP </span>
+                    </a>
+            </div>
+            <div class="search fl ml40">
+                    <form action="/search" method="post">
+                        <div class="text fl">
+                            <input type="text" class="input_content" name="search_content" placeholder="&nbsp;&nbsp;请输入您想要的商品...">
+                        </div>
+                        <div class="submit fl">
+                            <button type="submit" class="search_btn" value="搜索"/>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+                    <div class="clear"></div>
+            </div> 
+            <div class="right fr ">
+                    <div class="shopcart fr"><a href="">购物车</a></div>
+                    <div class="fr">
+                        <ul>
+                            <li><a href="javascript:void(0)" id="loginButton" target="_blank">登录</a></li>
+                            <li>|</li>
+                            <li><a href="" target="_blank" >注册</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </header>
+    <!-- 导航 -->
+    <div class="navigation">
+        <div class="nav  center">
+            <ul class="clearfix" id="nav_list">
+                        <li>
+                            <a href="#"target="_self">
+                            导航
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"target="_self">
+                            导航
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"target="_self">
+                            导航
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"target="_self">
+                            导航
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"target="_self">
+                            导航
+                            </a>
+                        </li>
+            </ul>
+        </div> 
+    </div>
+
+    <!-- swiper -->
+    <div class="swiper-container ">
+            <div class="swiper-wrapper">
+                    <div class="swiper-slide">Slide 1
+                        <img src="http://img2.imgtn.bdimg.com/it/u=3377302992,3361149372&fm=26&gp=0.jpg" height="100%" alt="">
+                    </div>
+                    <div class="swiper-slide">Slide 2
+                        <img src="http://s7.rr.itc.cn/r/wapChange/20166_5_0/a52s9q8069041051855.JPEG"  height="100%" alt="">
+                    </div>
+                    <div class="swiper-slide">Slide 3
+                        <img src="http://b-ssl.duitang.com/uploads/item/201204/05/20120405115227_AFkwe.jpeg" height="100%" alt="">
+                    </div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+        
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+        
+                <!-- 如果需要滚动条 -->
+                <div class="swiper-scrollbar"></div>
+
+    </div>
+
+    <!-- subbanner -->
+    <div class="sub_banner">
+            <div class="sub_banner">
+                <a href="" target="_blank">
+                    <img src="#" alt="1">
+                </a>
+            </div>
+            <div class="sub_banner">
+                <a href="" target="_blank">
+                    <img src="#" alt="2">
+                </a>
+            </div>
+            <div class="sub_banner">
+                <a href="" target="_blank">
+                    <img src="#" alt="3">
+                </a>
+            </div>
+    </div>
+
+     <!-- 畅销产品 -->
+     <div class="category_item">
+            <h3 class="title">- 畅 销 推 荐 -</h3>
+            <div class="content">
+                    <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                    </div>
+                    <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                    </div>
+                    <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                    </div>
+                    <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                    </div>
+                <div class="clear"></div>
+            </div>
+     </div>
+    
+    <!-- 创意新品 -->
+    <div class="category_item">
+        <h3 class="title">- 创 意 新 品 -</h3>
+        <div class="content">
+            
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+            
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- 经典推荐 -->
+    <div class="category_item">
+        <h3 class="title">- 经 典 推 荐 -</h3>
+        <div class="content">
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+                <div class="item fl">
+                        <div class="tag"><span style="background:#fff"></span></div>
+                        <div class="good_img">
+                            <a href="#">
+                                <img src="#">
+                            </a>
+                        </div>
+                        <div class="title"><a href="">标题</a></div>
+                        <div class="price">销售价格 元</div>
+                        <div class="price">市场价格 元</div>
+                </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+       
+    <!-- 底部 -->
+    <footer class=" ">	
+        <div class="div1">
+            <h4>关于我们</h4>
+            <span>哈尔滨布卡科技有限公司</span><br/>
+            <span>service@buka.com</span><br/>
+            <span>公众号：bukakeji</span><br/>
+        </div>
+
+        <div class="div2">
+            <h4>客户服务</h4>
+                    <a href="#" target="_self">
+                        <span>标题1</span>
+                    </a><br/>
+                    <a href="#" target="_self">
+                        <span>标题2</span>
+                    </a><br/>
+                    <a href="#" target="_self">
+                        <span>标题3</span>
+                    </a><br/>
+        </div> 
+
+        <div class="div3">
+            <h4>工作生活</h4>
+            <a href="#" target="_self">
+                <span>标题4</span>
+            </a><br/>
+            <a href="#" target="_self">
+                <span>标题5</span>
+            </a><br/>
+            <a href="#" target="_self">
+                <span>标题6</span>
+            </a><br/>
+        </div>
+    </footer>
 </body>
+<script>
+
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal', // 垂直切换选项
+            loop: true, // 循环模式选项
+            autoplay:true,//等同于以下设置
+    
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+    
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+    
+            // 如果需要滚动条
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        })        
+    </script>
 </html>

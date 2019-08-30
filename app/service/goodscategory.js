@@ -61,7 +61,7 @@ class GoodsCategoryService extends Service {
         }
       ]);
       
-      console.log(JSON.stringify(goodscategorys));
+      //console.log(JSON.stringify(goodscategorys));
       
       return { flag: true, data: goodscategorys, msg: "查找全部分类成功" };
     } catch (error) {
@@ -121,7 +121,7 @@ class GoodsCategoryService extends Service {
       );
 
       var catePid = object.cate_pid;
-      console.log(catePid);
+      //console.log(catePid);
 
       if (catePid == "0") {
         var _id = this.app.mongoose.Types.ObjectId(_id);
@@ -133,7 +133,7 @@ class GoodsCategoryService extends Service {
           { _id: _id },
           { data_status: 0 }
         );
-        console.log(JSON.stringify(a) + "xxxxx" + JSON.stringify(b));
+        //console.log(JSON.stringify(a) + "xxxxx" + JSON.stringify(b));
       } else {
         await this.ctx.model.GoodsCategory.updateOne(
           { _id: _id },

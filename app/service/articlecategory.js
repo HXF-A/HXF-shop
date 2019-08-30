@@ -15,7 +15,7 @@ class ArticleCategoryService extends Service {
     try {
       var topCates = await this.ctx.model.ArticleCategory.find({
         acate_pid: "0",
-        acate_status: 1
+        data_status: 1
       });
       return { flag: true, data: topCates, msg: "查询顶级模块成功" };
     } catch (error) {
@@ -37,7 +37,7 @@ class ArticleCategoryService extends Service {
         {
           $match: {
             acate_pid: "0",
-            acate_status: 1
+            data_status: 1
           }
         },
         //按照条件查找
@@ -50,6 +50,7 @@ class ArticleCategoryService extends Service {
             acate_desc: 1,
             acate_subtitle: 1,
             acate_link: 1,
+            data_status:1,
             acate_status: 1,
             data_sort: 1,
             acate_pid: 1,
@@ -58,7 +59,7 @@ class ArticleCategoryService extends Service {
               $filter: {
                 input: "$subCategorys",
                 as: "item",
-                cond: { $eq: ["$$item.acate_status", 1] } //条件
+                cond: { $eq: ["$$item.data_status", 1] } //条件
               }
             }
           }
@@ -92,7 +93,7 @@ class ArticleCategoryService extends Service {
     try {
       await this.ctx.model.ArticleCategory.updateOne(
         { _id: _id },
-        { acate_status: 0 }
+        { data_status: 0 }
       );
       return { flag: true, msg: "id软删除文章分类成功" };
     } catch (error) {
@@ -111,16 +112,16 @@ class ArticleCategoryService extends Service {
         var _id = this.app.mongoose.Types.Objectid(_id);
         await this.ctx.model.ArticleCategory.updateMany(
           { acate_pid: _id },
-          { acate_status: 0 }
+          { data_status: 0 }
         );
         await this.ctx.model.ArticleCategory.updateOne(
           { _id: _id },
-          { acate_status: 0 }
+          { data_status: 0 }
         );
       } else {
         await this.ctx.model.ArticleCategory.updateOne(
           { _id: _id },
-          { acate_status: 0 }
+          { data_status: 0 }
         );
       }
       return { flag: true, msg: "按照ID软删除成功" };

@@ -8,6 +8,7 @@ module.exports = app =>{
         ads_link:{type:String,default:''},//跳转地址
         ads_position:{type:Number,default:0},//1上，2中，3左，4右，5下
         data_sort:{type:Number,default:10},
+        ads_status:{type:Number,default:0},
         data_status:{type:Number,default:1},//1显示，2隐藏
         creat_time:{type:Number,default:Date.now()},
     });

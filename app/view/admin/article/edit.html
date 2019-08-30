@@ -13,13 +13,14 @@
 
 <div class="panel panel-default">
     <div class="panel-heading clear">
-        <span>增加文章</span>
+        <span>修改文章</span>
         <button id="article_button" class="pull-right">保存提交</button>
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form">
             <form id="articleForm" action="/admin/article/doEdit?_csrf={{csrf}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_id" value="{{article._id}}">
+                <input type="hidden" name="lastPage" value="{{lastPage}}">
                 <div>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
@@ -32,7 +33,7 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="base">
                             <ul>
-                                <li> <span>商品标题:</span> <input type="text" name="article_title" value="{{article.article_title}}"/></li>
+                                <li> <span>文章标题:</span> <input type="text" name="article_title" value="{{article.article_title}}"/></li>
                                 <li> <span>所属分类:</span>
                                     <select name="article_cateid" id="article_cateid">
                                         {%for cate in cates%}
@@ -45,6 +46,7 @@
                                 </li>
                                 <li> <span>封面图片:</span>
                                      <input type="file" name="article_img" />
+                                     <input type="hidden" name="history_img" value="{{article.article_img}}" />
                                      <br>
                                 <img src="{{article.article_img}}" width="200" >
                                 </li>

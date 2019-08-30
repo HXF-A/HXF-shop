@@ -1,0 +1,80 @@
+{%extends "../common/base.html"%}
+{%block cssjs%}
+<link rel="stylesheet" href="../../../public/admin/css/swiper.min.css">
+{%include "../common/cssjs.html"%}
+<!-- <link rel="stylesheet" href="../../../public/admin/css/swiper.min.css"> -->
+
+<script src="../../../public/admin/js/swiper.min.js"> </script>
+{%endblock%}
+{%block header%}
+{{ super() }}
+{%endblock%}
+{%block content%}
+{%include "./swiper.html"%}
+{%include "./subbanner.html"%}
+ <!-- 畅销产品  goodsHot,
+        goodsNew,
+        goodsBest,-->
+ <div class="category_item">
+        <h3 class="title">- 畅 销 推 荐 -</h3>
+        <div class="content">
+            {%for goods in goodsHot%}
+            <div class="item fl">
+                    <div class="tag"><span style="background:#fff"></span></div>
+                    <div class="good_img">
+                        <a href="#">
+                            <img src="{{goods.goods_img}}">
+                        </a>
+                    </div>
+                    <div class="title"><a href="">{{goods.goods_title}}</a></div>
+                    <div class="price">{{goods.price_selling}} 元</div>
+                    <div class="price">{{goods.price_market}} 元</div>
+                </div>
+                {%endfor%}
+        <div class="clear"></div>
+    </div>
+</div>
+  <!-- 创意新品 -->
+  <div class="category_item">
+        <h3 class="title">- 创 意 新 品 -</h3>
+        <div class="content">
+                {%for goods in goodsNew%}
+                <div class="item fl">
+                    <div class="tag"><span style="background:#fff"></span></div>
+                    <div class="good_img">
+                        <a href="#">
+                            <img src="{{goods.goods_img}}">
+                        </a>
+                    </div>
+                    <div class="title"><a href="">{{goods.goods_title}}</a></div>
+                    <div class="price">{{goods.price_selling}} 元</div>
+                    <div class="price">{{goods.price_market}} 元</div>
+                </div>
+                {%endfor%}
+            <div class="clear"></div>
+        </div>
+    </div>
+<!-- 经典推荐 -->
+<div class="category_item">
+    <h3 class="title">- 经 典 推 荐 -</h3>
+    <div class="content">
+            {%for goods in goodsBest%}
+			<div class="item fl">
+				<div class="tag"><span style="background:#fff"></span></div>
+				<div class="good_img">
+					<a href="#">
+						<img src="{{goods.goods_img}}">
+					</a>
+				</div>
+				<div class="title"><a href="">{{goods.goods_title}}</a></div>
+				<div class="price">{{goods.price_selling}} 元</div>
+				<div class="price">{{goods.price_market}} 元</div>
+            </div>
+            {%endfor%}
+        <div class="clear"></div>
+    </div>
+</div>
+{%endblock%}
+{%block footer%}
+{{ super() }}
+{%endblock%}

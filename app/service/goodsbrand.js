@@ -20,12 +20,17 @@ class GoodsBrandService extends Service {
       while ((fromStream = await parts()) != null) {
         if (fromStream && fromStream.filename) {
           //filePath  <=fromStream(fromStream.filename)方法返回
-          var filePath = await this.service.tool.filePath(fromStream.filename); //找到tergetPath目标路径与dbPath相对路径
+          //console.log("b"+fromStream.filename);
+          var filePath = await this.service.tool.filePath(fromStream.filename);
+          
+           //找到tergetPath目标路径与dbPath相对路径
           //filePath：{ targetPath: 'app/public/admin/upload/20190726/1564110932558.jpg',   dbPath: '/public/admin/upload/20190726/1564110932558.jpg' }
           await this.ctx.service.tool.uploadFile(
             fromStream,
             filePath.targetPath
           ); //上传来源流
+          //console.log("m"+filePath.targetPath);
+          //console.log("v"+filePath.dbPath)
           brandLogos.push(filePath.dbPath); //将相对路径传入整个数组中/
           //图片压缩
           await this.ctx.service.tool.jimp(filePath.targetPath);

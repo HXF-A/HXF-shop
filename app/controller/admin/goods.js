@@ -6,7 +6,7 @@ class GoodsController extends BaseController {
     var page = ctx.request.query.page || 1;
     var pageSize = 2;
     var result = await ctx.service.goods.findAllwithPage(page, pageSize);
-    if (result.falg) {
+    if (result.flag) {
       var goodss = result.data.goodss;
       var totalPage = result.data.totalPage;
       var page = result.data.page;
