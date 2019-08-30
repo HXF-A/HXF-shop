@@ -44,6 +44,24 @@ class AccessService extends Service {
           }
         }
       ]);
+      //console.log(JSON.stringify(accesss));
+      
+      function jsonsort(key,sortType){
+        return function(a,b){
+            return sortType ?~~(a[key]<b[key]):~~(a[key]>b[key])
+        }
+    }
+    if(accesss){
+        accesss = accesss.map((item)=>{
+          //console.log("sss"+JSON.stringify(item.subAccess));
+          
+             item.subAccess.sort( jsonsort('data_sort',false))
+             return item;
+        })
+
+        return {flag:true,data:accesss,msg:'查询所有权限成功'}
+    }
+
       if (accesss) {
         return { flag: true, data: accesss, msg: "查询所有权限成功" };
       }

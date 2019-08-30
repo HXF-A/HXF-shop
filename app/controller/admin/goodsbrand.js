@@ -22,6 +22,8 @@ class GoodsbrandController extends BaseController {
     //const fromStream = await this.ctx.getFileStream();
     //多文件上传
      var parts = await this.ctx.multipart({autoFields:true});//多文件查找流文件
+     //console.log(result);
+     
       var result = await this.ctx.service.goodsbrand.insert(parts);
       if (result.flag) {
         await this.success("/admin/goodsbrand", result.msg);

@@ -81,7 +81,7 @@ class GoodsTypeController extends BaseController {
   async delete() {
     const { ctx } = this;
     var _id = ctx.request.query._id;
-    console.log(_id);
+    //console.log(_id);
     var result = await ctx.service.goodstype.delete(_id);
     if (result.flag) {
       await this.success(this.ctx.locals.lastPage, result.msg);

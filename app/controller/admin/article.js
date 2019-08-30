@@ -67,10 +67,14 @@ class ArticleController extends BaseController {
     var _id = ctx.request.query._id;
     var cateResult = await ctx.service.articlecategory.findAll();
     var articleResult = await ctx.service.article.findById(_id);
+    var lastPage  =  ctx.locals.lastPage
+    console.log(lastPage);
+    
     if (articleResult.flag && cateResult.flag) {
       var article = articleResult.data;
-      var cates = cateResult.data;
-      await ctx.render("admin/article/edit", { article, cates });
+      var cates = cateResult.data; 
+      
+      await ctx.render("admin/article/edit", { article, cates ,lastPage});
     } else {
       await this.fail("/admin/article", articleResult.msg);
     }
@@ -79,9 +83,14 @@ class ArticleController extends BaseController {
   async doEdit() {
     const { ctx } = this;
     var fromStream = await ctx.getFileStream({ requireFile: false });
+    console.log(JSON.stringify(fromStream));
+    
+    var targetPage = fromStream.fields.lastPage 
     var result = await ctx.service.article.update(fromStream);
+    console.log("xxx"+targetPage);
+    
     if (result.flag) {
-      await this.success("/admin/article", result.msg);
+      await this.success(targetPage, result.msg);
     } else {
       await this.fail(ctx.locals.lastPath, result.msg);
     }

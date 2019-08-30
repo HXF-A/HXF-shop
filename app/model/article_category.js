@@ -9,6 +9,7 @@ module.exports = app =>{
         acate_pid:{type:Schema.Types.Mixed},//混合类型
         acate_keys:{type:String,default:''},
         acate_desc:{type:String,default:''},
+        data_status:{type:Number,default:1},
         acate_status:{type:Number,default:1},
         data_sort:{type:Number,default:1},
         create_time:{type:Number,default:Date.now()},

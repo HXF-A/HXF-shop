@@ -121,5 +121,16 @@ class AdvertiseService extends Service {
       return {flag:false,msg:'数据异常，删除商品广告失败'}
     }
   }
+  //通过位置查找图片，并加以限制
+  async findAdsPosition(position,number){
+    try {
+      var adsTop = await this.ctx.model.Advertise.find({ads_position:position,ads_status :1}).sort({data_sort:1}).limit(number) 
+   return {flag:true,data:adsTop,msg:'获取轮播广告成功'}
+    } catch (error) {
+      
+      return {flag:false,msg:'数据异常，获取轮播广告失败'}
+    }
+  }
+
 }
 module.exports = AdvertiseService;

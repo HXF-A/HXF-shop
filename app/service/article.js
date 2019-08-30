@@ -2,15 +2,17 @@ const { Service } = require("egg");
 const fs = require("fs");
 class ArticleService extends Service {
   //增加insert
-  async insert(fromSteam) {
+  async insert(fromStream) {
     try {
-      var body = fromSteam.fields;
-      if (fromSteam && fromSteam.filename) {
-        var filePath = await this.service.tool.filePath(fromSteam.filename);
+      var body = fromStream.fields;
+      if (fromStream && fromStream.filename) {
+        var filePath = await this.service.tool.filePath(fromStream.filename);
         body.article_img = filePath.dbPath;
-        await this.ctx.service.tool.uploadFile(fromSteam, filePath.targetPath);
+        await this.ctx.service.tool.uploadFile(fromStream, filePath.targetPath);
+
         await this.ctx.service.tool.jimp(filePath.targetPath);
       }
+      
       var articleModel = new this.ctx.model.Article(body);
       await articleModel.save();
       return { flag: true, msg: "增加文章成功" };
@@ -37,10 +39,28 @@ class ArticleService extends Service {
       if (page > totalPage) {
         page = totalPage;
       }
-      var articles = await ctx.model.Article.find({})
-        .sort({ data_sort: 1 })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
+      // var articles = await ctx.model.Article.find({})
+      //   .sort({ data_sort: 1 })
+      //   .skip((page - 1) * pageSize)
+      //   .limit(pageSize); 
+      var articles = await ctx.model.Article.aggregate([
+        {
+          $lookup:{
+            from:'article_category',
+            localField:'article_cateid',
+            foreignField:'_id',
+            as:'category'
+          }
+        },
+        {
+          $skip:((page - 1) * pageSize)
+        },
+        {
+          $limit:pageSize
+        },{
+          $unwind:"$category"
+        }
+      ])
       return {
         flag: true,
         data: { articles: articles, totalPage: totalPage, page: page },
@@ -83,17 +103,27 @@ class ArticleService extends Service {
     }
   }
   //修改操作update
-  async update(fromSteam) {
+  async update(fromStream) {
     try {
-      var body = fromSteam.fields;
+      var body = fromStream.fields;
       var _id = body._id;
-      if (fromSteam && fromSteam.filename) {
-        var filePath = await this.ctx.service.tool.filePath(fromSteam.filename);
+      if (fromStream && fromStream.filename) {
+        var filePath = await this.ctx.service.tool.filePath(fromStream.filename);
         body.article_img = filePath.dbPath;
-        await this.ctx.service.tool.uploadFile(fromSteam, filePath.targetPath);
+        //console.log(body);
+        //console.log("xxxxx"+filePath.targetPath);
+        
+        // await this.ctx.service.tool.uploadFile(fromStream, filePath.targetPath);
+        await this.ctx.service.tool.uploadFile(
+          fromStream,
+          filePath.targetPath
+        );
+
         await this.ctx.service.tool.jimp(filePath.targetPath);
-        await this.ctx.model.Article.updateOne({ _id: _id }, body);
-        var path1 = "app" + body.article_img;
+       // console.log(body);
+        
+       // await this.ctx.model.Article.updateOne({ _id: _id }, body);
+        var path1 = "app" + body.history_img;
         var path2 = this.ctx.helper.url200(path1);
         if (fs.existsSync(path1)) {
           fs.unlinkSync(path1);

@@ -10,6 +10,15 @@ class CommentService extends Service {
       return { flag: false, msg: "增加导航失败" };
     }
   }
+  //依据position查找导航
+  async findNavPosition(position){
+    try {
+      var navMiddleb = await this.ctx.model.Navigation.find({nav_position :position,nav_status :1}).sort({data_sort:1})
+    return {flag:true,data:navMiddleb,msg:'查询所有中间导航成功'}
+    } catch (error) {
+      return{flag:false,mag:'数据异常，查询所有中间导航失败 '}
+    }
+  }
   //查找全部导航
   async findAll(page, pageSize) {
     try {

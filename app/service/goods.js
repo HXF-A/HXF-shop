@@ -14,7 +14,7 @@ class GoodsService extends Service {
             fromStream,
             filePath.targetPath
           ); //上传来源流
-          links.push(filePath.dbPath);  
+          links.push(filePath.dbPath);
         } else {
           continue;
         }
@@ -239,7 +239,7 @@ class GoodsService extends Service {
       return { flag: false, msg: "商品保存失败" };
     }
   }
-//软删除商品
+  //软删除商品
   async deleteUpdate(_id) {
     try {
       await this.ctx.model.Goods.updateOne({ _id: _id }, { data_status: 0 });
@@ -249,40 +249,66 @@ class GoodsService extends Service {
     }
   }
   //通过id查找全部商品
-  async findAll(_id){
+  async findAll(_id) {
     try {
-          var goodss = await this.ctx.model.Goods.find({_id:_id})
-          return {flag:true,data:goodss,msg:'按照id查询商品成功'}
+      var goodss = await this.ctx.model.Goods.find({ _id: _id });
+      return { flag: true, data: goodss, msg: "按照id查询商品成功" };
     } catch (error) {
-      return {flag:false,msg:'按照id查询商品失败'}
+      return { flag: false, msg: "按照id查询商品失败" };
     }
-
-
   }
   //不会写硬件删除的富文本的本地删除
-  async delete(_id){
+  async delete(_id) {
     try {
-      var deleteGoods = await this.ctx.service.goods.findAll(_id)
-      console.log(deleteGoods);
-      
-    } catch (error) {
-      
-    }
-    
-
+      var deleteGoods = await this.ctx.service.goods.findAll(_id);
+      //console.log(deleteGoods);
+    } catch (error) {}
   }
 
-
-
   //通过type_id查找商品，为导航做准备
-  async findByCategoryId(category_id){
+  async findByCategoryId(category_id) {
     try {
-      console.log('aaaa'+category_id);
-      
-      var categoryIGoods = await this.ctx.model.Goods.find({category_id:category_id})
-      return {flag:true,data:categoryIGoods,msg:'通过category_id查找goods商品成功'}
+      //console.log("aaaa" + category_id);
+
+      var categoryIGoods = await this.ctx.model.Goods.find({
+        category_id: category_id
+      });
+      return {
+        flag: true,
+        data: categoryIGoods,
+        msg: "通过category_id查找goods商品成功"
+      };
     } catch (error) {
-      return {flag:false,msg:'数据异常，通过category_id查找goods商品失败'}
+      return { flag: false, msg: "数据异常，通过category_id查找goods商品失败" };
+    }
+  }
+
+  //拿前台数据
+
+  //查找热销商品
+  async findGoodsIs(condition, number) {
+    try {
+      //console.log("xxx");
+      var json = { data_status: 1 };
+      var limit = number | 4;
+      switch (condition) {
+        case "is_hot":
+          json = Object.assign(json, { is_hot: 1 });
+          break;
+        case "is_new":
+          json = Object.assign(json, { is_new: 1 });
+          break;
+        case "is_best":
+          json = Object.assign(json, { is_best: 1 });
+          break;
+      }
+      var goodss = await this.ctx.model.Goods
+        .find(json).limit(limit)
+        
+        
+       return {flag:true,data:goodss,msg:'查询所有商品is成功'}
+    } catch (error) {
+      return {flag:false,msg:'数据异常，查询所有is商品失败'}
     }
   }
 }
